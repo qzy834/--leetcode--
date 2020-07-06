@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool test_overlap(string s, int head, int tail){
+        for(int ii = head; ii < tail; ii ++)
+            if(s[ii] == s[tail])return true;
+        return false;
+    }
+    int lengthOfLongestSubstring(string s) {
+        if (s.size() == 0)return 0;
+        if (s.size() == 1)return 1;
+        int left(0);
+        int right(1);
+        int size = s.size();
+        int ans = 0;
+        while(right < size){           
+            if(test_overlap(s, left, right))left ++;                
+            else right ++;
+            ans = max(ans, right - left);
+        }
+        return ans;
+    }
+};
