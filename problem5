@@ -1,0 +1,44 @@
+//寻找中枢的方法。
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        if(s.length() == 0)return "";
+        int len = s.length();
+        int max_count(1);
+        int temp;
+        int ans_head(0);
+        int ans_end(0);
+        for (int ii =0; ii < len-1; ii++){
+            if (s[ii] == s[ii+1]){
+                temp = 0;
+                while(s[ii-temp] == s[ii+temp+1]){
+                    temp ++;
+                    if(ii-temp <0 || ii+temp+1 >=len)break;
+                }
+                if(max_count < 2*temp){
+                    max_count = 2*temp;
+                    ans_head = (ii - (temp-1));
+                    ans_end = (ii + (temp-1) +1);
+                }
+            }
+        }
+
+        for (int ii =0; ii < len-2; ii++){
+            if(s[ii] == s[ii+2]){
+                temp = 0;
+                while(s[ii-temp] == s[ii+temp+2]){
+                    temp ++;
+                    if(ii-temp<0 || ii+temp+2 >= len)break;
+                }
+                if(max_count < 2*temp+1){
+                    max_count = 2*temp+1;
+                    ans_head = (ii - (temp-1));
+                    ans_end = (ii + (temp-1) +2);
+                }               
+            }
+           
+        }
+        
+        return s.substr(ans_head, ans_end - ans_head+1 ); 
+    }
+};
