@@ -1,0 +1,23 @@
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        if(numRows == 1)return s;
+        vector<string> temp(numRows,"");
+        int len = s.length();
+        for(int ii = 0; ii < len; ii++){
+            int flag = (ii+1)%(2*numRows-2);
+            if(flag <= numRows && flag > 0)
+                temp[flag-1] = temp[flag-1] + s[ii];
+            else {
+                if(flag == 0)temp[1] = temp[1] + s[ii];
+                else{
+                    int aa = (2*numRows - 2) - flag + 1;
+                    temp[aa] = temp[aa] + s[ii];
+                }
+            }
+        }
+        string ans;
+        for(int ii = 0; ii < numRows; ii++)ans = ans + temp[ii];
+        return ans;   
+    }
+};
